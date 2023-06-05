@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_io.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>File Reader</name>
+    
+    <shortDescription>
+        Reads SDF or DataWarrior (DWAR) files.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Reads SDF or DataWarrior (DWAR) files
+            <p>This node reads all rows from the specified input file. There are different types of columns that can
+               be imported: 1. data columns, containing simple data types like numeric values or strings, and
+               2. special data columns containing structures or structure annotations.  
+            </p>
+            <p>There are a number of different special columns:
+            </p>
+             <ol>
+			  <li>Structure columns, indicated by the postfix [OCLMolecule]</li>
+			  <li>Annotations to structure columns, indicated by the postfix [StructureColName:xxx], where xxx indicates the type of annotation</li>
+			</ol> 
+            <p>Annoations can be:
+            </p>
+             <ol>
+			  <li>Descriptors, e.g. [StructureColName:SkelFf] , [StructureColName:FragFf] , etc.</li>
+			  <li>3D-Coordinates, indicated by [StructureColName:idcoordinates3D]</li>
+			</ol> 
+            <p>NOTE: When importing any kind of annotation, you must also import the parent "Structure" column! 
+            </p>
+            <p>NOTE: When importing 3D-coordinates, the node creates a column of type OCLConformerList, containing the
+               conformers described by the imported 3D-coordinates.
+            </p>            		         
+        </intro>
+        
+        
+        <option name="Input file">The file that should be read. Can be a SDF or DataWarrior (DWAR) file.</option>
+        <option name="Included/Excluded columns">Selection of the columns that should be read together with the structures</option>
+    </fullDescription>
+    
+    <ports>
+        <outPort index="0" name="Structure table">Table with the read molecules and selected additional columns</outPort>
+    </ports>    
+    
+</knimeNode>

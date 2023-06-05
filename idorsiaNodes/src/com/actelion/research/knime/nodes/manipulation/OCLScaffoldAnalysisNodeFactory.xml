@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_manipulation.png" type="Manipulator" xmlns="http://knime.org/node/v2.8">
+    <name>Scaffold Analysis</name>
+
+    <shortDescription>
+        Locates the core structure(s) of molecules.
+    </shortDescription>
+
+    <fullDescription>
+        <intro>
+            <p>
+                The Scaffold Analysis locates the core structure(s) of every molecule within a given column and creates
+                a new column that contains these scaffolds. The method used to locate the core structure(s) depends on
+                the chosen Scaffold type:
+            </p>
+            <h3>Plain ring systems</h3>
+            <p>This mode locates all single ring and annelated ring systems without any substituents.</p>
+            <h3>Ring systems with substitution pattern</h3>
+            <p>This mode works as the previous one, but marks every ring atom as being substituted, which carries an
+                exeo-cyclic, non-hydrogen substituent in the original molecule.
+            </p>
+            <h3>Ring systems with carbon/hetero subst. pattern</h3>
+            <p>This mode goes a step further by distinguishing, whether a substituent's first atom was a carbon atom
+                or a hetero atom.
+            </p>
+            <h3>Ring system with atomic-no subst. pattern</h3>
+            <p>This mode is even more specific. Every exocyclic substituent is represented by its first atom.</p>
+            <h3>Murcko scaffold</h3>
+            <p>he Murcko scaffold contains all plain ring systems of the given molecule plus all direct connections
+                between them. Substituents, which don't contain ring systems are removed from rings and ring connecting
+                chains.
+            </p>
+            <h3>Murcko skeleton</h3>
+            <p>The Murcko skeleton is a generalized Murcko scaffold, which has all hetero atoms replaced by carbon
+                atoms.
+            </p>
+            <h3>Most central ring system</h3>
+            <p>As the name implies, this is that ring system of the molecule, which is closest to its topological
+                center. It does not contain any exocyclic substitution information.
+            </p>
+        </intro>
+
+
+        <option name="Input column">The column that contains the molecules that should be analyzed</option>
+        <option name="Scaffold type">The scaffold used for the analysis (see above)</option>
+    </fullDescription>
+
+    <ports>
+        <inPort index="0" name="Input table">Table containing the input compounds</inPort>
+
+        <outPort index="0" name="Scaffold analysis">Data table containing the extracted scaffolds for each molecule in a separate column</outPort>
+        <outPort index="1" name="Scaffold frequency">Data table containing all scaffolds and their frequency in the input table.</outPort>
+    </ports>
+
+</knimeNode>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_manipulation.png" type="Source" xmlns="http://knime.org/node/v2.8">
+    <name>Combinatorial Library</name>
+
+    <shortDescription>
+        Enumerates all products of a virtual reaction
+    </shortDescription>
+
+    <fullDescription>
+        <intro>
+            <p>This node generates all structures of a virtual combinatorial library if a generic reaction is drawn and
+                for every generic reactant a list of real reactant structures is provided as an input. The enumerated
+                product
+                structures could be used to predict physico-chemical properties and to select those products with the
+                most promising properties for synthesis or to be purchased.
+            </p>
+            <p>
+
+            </p>
+        </intro>
+        <option name="Generic Reaction">Define the reaction that should be used to generate the virtual products. All
+            atoms of the reaction should be mapped using the mapping tool in the editor. The reaction can be saved and
+            loaded for later use
+        </option>
+        <option name="Generate ... of multiple possible products">Specifies if all or only on of multiple possible
+            products are generated
+        </option>
+        <option name="Reactant 1">Column of input 1 that contains the molecules (Molecule) and the name (Name, optional) for the first reactant
+        </option>
+        <option name="Reactant 2">Column of input 2 that contains the molecules (Molecule) and the name (Name, optional) for the second reactant
+        </option>
+        <option name="Reactant 3">Column of input 3 that contains the molecules (Molecule) and the name (Name, optional) for the third reactant
+        </option>
+
+    </fullDescription>
+
+    <ports>
+        <inPort index="0" name="Reactant 1 Table">Data table containing the structures used as the first reactant of the
+            reaction
+        </inPort>
+        <inPort index="1" name="Reactant 2 Table">Data table containing the structures used as the second reactant of
+            the reaction
+        </inPort>
+        <inPort index="2" name="Reactant 3 Table">Data table containing the structures used as the third reactant of the
+            reaction
+        </inPort>
+        <outPort index="0" name="Combinatorial Library Table">Data table containing the results of the virtual product
+            enumeration of the specified reaction
+        </outPort>
+    </ports>
+
+</knimeNode>

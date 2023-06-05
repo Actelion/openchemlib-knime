@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_calculation.png" type="Manipulator" xmlns="http://knime.org/node/v2.8"
+>
+    <name>Calculate Similarity (legacy)</name>
+
+    <shortDescription>
+        Calculates similarity of a set of molecules to a target structure based on a specific descriptor.
+    </shortDescription>
+
+    <fullDescription>
+        <intro>
+            <p>Calculates similarity of a set of molecules to a target structure based on a specific descriptor.</p>
+            <h3>Which Descriptor Should Be Used For Which Purpose?</h3>
+            <p>If the purpose is to filter a large compound collection by chemical structure similarity, the default
+                descriptor FragFp is a good choice, because it is automatically available, it does not require much
+                space and similarity calculations are practically instantanious.
+                If more fine grained similaries need to be perceived, e.g. if stereo isomers need to be distinguished or
+                to achieve best results from clustering or any kind of similarity analysis, then the SkelSpheres
+                descriptor should be taken. Especially, when creating an evolutionary library in vast virtual compound
+                space, then the SkelSpheres descriptor outperformes the binary fingerprints in quality, because it
+                considers multiple fragment occurence and makes hash collisions unlikely.
+                When chemical functionality from a synthetic chemist's point of view is more important than the carbon
+                skeleton that carries this functionality, the you should try the OrgFunctions descriptor. Examples are
+                searching a chemicals database for an alternative reactant to a reaction or arranging a building blocks
+                collection in space based synthetically accessible functionality.
+                If the similarity of biological binding behaviour is key rather than merely the similarity of the
+                chemical graph, then use the Flexophore descriptor, which requires more space and significantly more
+                time to calculate descriptors as well as similarity values.
+            </p>
+            <h3>The FragFp Descriptor</h3>
+            <p>
+                The default descriptor FragFp is a substructure fragment dictionary based binary fingerprint similar to
+                the MDL keys. It relies on a dictionary of 512 predefined structure fragments. These were selected from
+                the multitude of possible structure fragments by optimizing two criteria: All chosen fragments should
+                occurr frequently withing typical organic molecule structures. Any two chosen fragments should show
+                little overlap concerning their occurrence in diverse sets of organic compounds. The FragFp descriptor
+                contains 1 bit for every fragment in the dictionary. A bit set to 1 if the corresponding fragment is
+                present in the molecule at least on time. In about half of the fragments all hetero atoms have been
+                replaced by wild cards. This way single atom replacements only cause a moderate drop of similarity,
+                which reflects a chemists natural similarity perception.
+            </p>
+
+            <h3>The PathFp Descriptor</h3>
+            <p>
+                The PathFp descriptor encodes any linear strand of up to 7 atoms into a hashed binary fingerprint of 512
+                bits. Therefore, every path of 7 or less atoms in the molecule is located. In a normalized way an
+                identifying text string is constructed from every path that encodes atomic numbers and bond orders. From
+                the text string a hash value is created, which is used to set the respective bit of the fingerprint. The
+                PathFp descriptor is conceptually very similar to the 'folded fingerprints' that software of Daylight
+                Inc. uses for calculating chemical similarities.
+            </p>
+            <h3>The SphereFp Descriptor</h3>
+            <p>The SphereFp descriptor encodes circular spheres of atoms and bonds into a hashed binary fingerprint of
+                512 bits. From every atom in the molecule,
+                 fragments of increasing size are constructed by including n layers of atom neighbours (n=1 to 5).
+                These circular fragments are canonicalized considering aromaticity, but neglecting stereo
+                configurations. From the canonical representation a hash code is generated, which is used to set the
+                respective bit of the fingerprint. In the literature spherical fingerprints are sometimes referred to as
+                HOSE codes and are in use for spectroscopy prediction.
+            </p>
+            <h3>The SkelSpheres Descriptor</h3>
+            <p>When a more subtle structural similarity is needed, the SkeletonSpheres descriptorshould be used. It is
+                related to the SphereFp, but also considers stereochemistry, counts duplicate fragments, in addition
+                encodes hetero-atom depleted skeletons, and has twice the resolution leading to less hash collisions. It
+                is the most accurate descriptor for calculating similarities of chemical graphs. On the flipside it
+                needs more memory and similarity calculations take slightly longer. Technically, it is a byte vector
+                with a resolution of 1024 bins.
+            </p>
+            <h3>The OrgFunctions Descriptor</h3>
+            <p>The OrgFunctions descriptor perceives molecules with the focus on available funtional groups from a
+                synthetic chemist's point of view. It also recognizes the steric or electronic features of the
+                neighborhood of the functional groups. It perceives molecules as being very similar, if they carry the
+                same functional groups in similar environments independent of the rest of the carbon skeletons.
+            </p>
+            <p>The OrgFunctions descriptor is neither a fingerprint nor an integer vector. It rather stores all
+                synthetically accessible functions of the molecule in a finely grained way. 1024 core functions are distinguished, which typically overlap. Butenone for instance is recognized as vinyl-alkyl-ketone
+                as well as a carbonyl-activated terminal alkene. All 1024 functional groups are organized in a tree
+                structure that permits deriving similarities between related functions. These are taken into account,
+                when the similarity between two molecules, i.e. OrgFunctions descriptors, is calculated.
+            </p>
+            <h3>The Flexophore Descriptor</h3>
+            <p>The Flexophore descriptor allows predicting 3D-pharmacophore similarities. It provides an easy-to-use and
+                yet powerful way to check, whether any two molecules may have a compatible protein binding behavior. A
+                high Flexophore similarity indicates that a significant fraction of conformers of both molecules are
+                similar concerning shape, size, flexibility and pharmacophore points. Different from common
+                3D-pharmacophore approaches, this descriptor matches entire conformer sets rather than comparing
+                individual conformers, leading to higher predictability and taking molecular flexibility into account.
+            </p>
+            <p>The calculation of the Flexophore descriptor is computationally quite demanding. For a given molecule it
+                starts with the creation of a representative set of conformers using a self organization based
+                algorithm, which give more diverse conformers than rule based approaches. It also detects and classifies
+                atoms in the underlying molecule, which have the potential to interact with protein atoms in any way.
+                De-facto an enhanced MM2 atom type is used to describe these atoms as interaction point. In some cases
+                multiple atoms contribute to one summarized interaction point, e.g. in aromatic rings.
+            </p>
+            <p>A molecule's Flexophore descriptor now consists of a reduced, but complete graph of the original molecule
+                with the interaction points being considered graph nodes. A graph edge between two nodes is encoded as a
+                distance histogram between these nodes over all conformers. Since the Flexophore descriptor is a
+                complete graph, every combination of any two nodes is encoded and stored as part of the descriptor.
+                Thus, the descriptor creation as well as the similarity calculation from two descriptors depend heavily
+                on the number of interaction points in each of them.
+            </p>
+            <p>The calculation of the similarity between two Flexophore descriptors involves a graph matching algorithm
+                that not only tries to match the largest possible subgraphs, but also tries to maximize edge and node
+                similarities. Edge similarities are derived from the distance histogram overlaps and node similarities
+                are taken from a interaction point (extended MM2 atom type) similarity matrix, which was originally
+                derived from a ligand-protein interaction analysis of the PDB database.
+            </p>
+
+        </intro>
+
+
+        <option name="Input column">The column containing the molecules used for the similarity calculation</option>
+        <option name="New column name">The name of the column containing the calculated similarity</option>
+        <option name="Used descriptor">The descriptor used for the similarity calculation (see above)</option>
+        <option name="Target structure">The similarity is calculated to this molecule</option>
+
+    </fullDescription>
+
+    <ports>
+        <inPort index="0" name="Input table">Input table containing the molecules for which the similarity should be
+            calculated
+        </inPort>
+        <!-- possibly more input ports here-->
+        <outPort index="0" name="Similarity table">Table with calculated similarity added in the specified column.
+        </outPort>
+        <!-- possibly more output ports here-->
+    </ports>
+
+</knimeNode>

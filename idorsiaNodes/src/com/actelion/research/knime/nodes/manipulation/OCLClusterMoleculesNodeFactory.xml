@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_manipulation.png" type="Manipulator" xmlns="http://knime.org/node/v2.8">
+    <name>Cluster Molecules (legacy)</name>
+
+    <shortDescription>Clusters compounds using a simple, reproducible, but computationally demanding algorithm. Best used for datasets
+        with maximum 10000 compounds.</shortDescription>
+
+    <fullDescription>
+        <intro>
+            <p>Clustering is an old cheminformatics technique for subdividing a typically large compound collection into
+                small groups of similar compounds. Clustering was used in the old days, when computational resources
+                were expensive, to precompute similarity relationships between compounds. Cluster membership could be
+                stored easily in databases to be quickly retrieved later, whenever the need arose to locate similar
+                structures to any given structure, e.g. after a high-throughput screening. The inherent problem of
+                clustering is that cluster borders are arbitrary and may separate very similar compounds into different
+                clusters. Therefore, the retrieval of all cluster co-member of a given compound does not necessarily
+                result in the most similar compounds.
+            </p>
+            <p>The implemented cluster algorithm is simple, reproducible, but computationally demanding and, therefore,
+                best used if the
+                dataset doesn't contain far beyond 10000 compounds. First the complete similarity matrix is calculated,
+                which can be done with any descriptor. Then, in a stepwise process the most similar compounds or
+                clusters are merged to form a new cluster, whose similarity to the remaining compounds and clusters is
+                re-calculated as a weighted mean from its members. The merging process continues until a stop criterion
+                is met. Stop criteria can be defined in the cluster dialog.
+            </p>
+            <p>
+                The clustering process may be defined to stop when the cluster count reaches a desired number or when
+                the similarity needed to join two clusters falls below a definable limit. If both criteria are defined,
+                then the clustering stops if any of both criteria are met.
+            </p>
+        </intro>
+
+        <option name="Input column">The column containing the molecules that should be clustered</option>
+        <option name="Cluster column name">Name of the column that will contain the cluster number</option>
+        <option name="Representative column name">Name of the column that will contain the information if a compound is
+            the representative compound of the cluster
+        </option>
+        <option name="Stop clustering when number of clusters reaches">If selected, the clustering will stop if the
+            specified number of clusters is reached
+        </option>
+        <option name="Stop clustering when highest similarity falls benlow">If selected, the clustering will stop if the
+            the similarity needed to join two clusters falls below a defined threshold
+        </option>
+        <option name="Descriptor">The descriptor used for the similarity calculation. For more information about the
+            different types of descriptors, please see the node description of the 'Calculate Similarity' node
+        </option>
+
+
+    </fullDescription>
+
+    <ports>
+        <inPort index="0" name="Input table">Input table containing the molecules to be clustered</inPort>
+        <!-- possibly more input ports here-->
+        <outPort index="0" name="Cluster table">Table with clustering information added.</outPort>
+    </ports>
+
+</knimeNode>

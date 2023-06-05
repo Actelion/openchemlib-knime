@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_manipulation.png" type="Manipulator" xmlns="http://knime.org/node/v2.8">
+    <name>Diverse Selection (legacy)</name>
+
+    <shortDescription>
+        Locates the most diverse subset within a given set of molecules.
+    </shortDescription>
+
+    <fullDescription>
+        <intro>
+            <p>This function is an efficient implementation for locating a most diverse subset within a given set of
+                molecules. The algorithm can be preloaded with a second set of molecules, causing the algorithm to
+                select molecules, which are both, most different to any molecule in the secons set and highly diverse
+                among the selection. Especially for this reason, this function is perfectly suited to select diverse
+                screening compounds from a provider's catalog avoiding any compound being similar to already available
+                in-house compounds.
+            </p>
+            <p>
+                All binary descriptors can be used with this algorithm. After computing the desired number of diverse
+                compounds a column is added (selection rank column) to the dataset with ascending numbers indicating
+                selected compounds. The
+                compound with number 1 is that compounds, which is most different to all the others. Compound number 2
+                is most different from number 1. Compound 3 is the one most different to 1 and 2 and so forth. If a
+                dataset contains a few awkward compounds, then these are likely to be picked first. Therefore, in
+                reality one would often skip the very first compounds of the diverse selection.
+            </p>
+
+        </intro>
+
+
+        <option name="Input column">The column containing the input set of molecules</option>
+        <option name="Descriptor">The descriptor that is used for the dissimilarity calculation</option>
+        <option name="No of compounds">The number of diverse compounds to pick from all input compounds</option>
+        <option name="Selection rank column name">The name of the appended column, that contains the selection rank of
+            the compounds
+        </option>
+        <option name="Avoid compounds in column">Only available if a data table is connected to the second input port:
+            specifies the column that contains the compounds that should be avoided in the diverse set.
+        </option>
+
+    </fullDescription>
+
+    <ports>
+        <inPort index="0" name="Input table">Table containing the whole set of compounds</inPort>
+        <inPort index="1" name="Compounds to avoid">Table containing the compounds to avoid in the diverse selection</inPort>
+        <!-- possibly more input ports here-->
+        <outPort index="0" name="Diverse set">Table containing the diverse selection information</outPort>
+        <!-- possibly more output ports here-->
+    </ports>
+
+</knimeNode>

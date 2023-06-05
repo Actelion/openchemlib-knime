@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_manipulation.png" type="Manipulator" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Largest Fragment</name>
+    
+    <shortDescription>
+        Removes all but the largest fragment of the molecule.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Removes all but the largest fragment of the molecule.</intro>
+
+
+        <option name="Input column">The column containing the input molecules</option>
+        <option name="New column name">The name of the column that will contain the largest fragment</option>
+        <option name="Remove input column?">If checked, the input column will be replaced by the new column</option>
+
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Input table">Input table containing at least one molecule column</inPort>
+        <outPort index="0" name="Largest fragment table">Table containing the largest fragment in an added column</outPort>
+    </ports>    
+    
+</knimeNode>

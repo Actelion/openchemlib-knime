@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_io.png" type="Sink" xmlns="http://knime.org/node/v2.8">
+    <name>File Writer</name>
+    
+    <shortDescription>
+        Writes data table to a DataWarrior (DWAR) file.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Writes data table to a DataWarrior (DWAR) file.</intro>
+
+
+        <option name="Output file">The file the content should be written to.</option>
+        <option name="Overwrite file?">Check this, if you want to overwrite the file, if it already exists.</option>
+        <option name="Included/Excluded columns">Selection of the columns that should be written together with the structures</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Input table">The data table to write.</inPort>
+        <outPort index="0" name="JSON Data">Table contains a single cell with the json representation of the dwar file</outPort>
+        <outPort index="1" name="Filtered input table">Table contains the selected columns of the input table</outPort>
+    </ports>    
+    
+</knimeNode>

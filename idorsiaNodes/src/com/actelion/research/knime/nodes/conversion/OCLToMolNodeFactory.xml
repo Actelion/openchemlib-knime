@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_conversion_to.png" type="Manipulator" xmlns="http://knime.org/node/v2.8">
+    <name>ActMolecule to Molecule</name>
+
+    <shortDescription>
+        Converts an Actelion molecule column to a molecule string representation (SDF or Mol File) and appends it to the table.
+    </shortDescription>
+
+    <fullDescription>
+        <intro>Converts an Actelion molecule column to a molecule string representation (SDF or Mol File) and appends it to the table.</intro>
+
+
+        <option name="Input column">The column containing the Actelion molecules</option>
+        <option name="New column name">The name of the column that will contain the string representation of the molecules</option>
+        <option name="Remove input column?">If checked, the input column will be replaced by the new column</option>
+
+        <!-- possibly more options that can also be grouped by tabs -->
+        <!--
+        <tab name="Standard Options">
+            <option name="short name of first option (like in the dialog)">description of first option</option>
+            <option name="short name of second option (like in the dialog)">description of second option</option>
+        </tab>
+        <tab name="Advanced Options">
+            <option name="short name of first advanced option (like in the dialog)">description of first advanced option</option>
+        </tab>
+        -->
+    </fullDescription>
+
+    <ports>
+        <inPort index="0" name="Input table">Input table containing the Actelion molecule representation in one column</inPort>
+        <outPort index="0" name="Molecule data table">Table containing the string representation of the molecules in an added column</outPort>
+
+    </ports>
+
+</knimeNode>

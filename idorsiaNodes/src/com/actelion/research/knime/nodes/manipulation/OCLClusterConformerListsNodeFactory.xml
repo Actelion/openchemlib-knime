@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./ocl_manipulation.png" type="Manipulator" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Cluster Conformer Lists</name>
+    
+    <shortDescription>
+        Equivalent to the "Cluster Molecules" node, but for conformer list objects.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>
+            <p>This node does not rely on precomputed descriptors, but on precomputed conformer lists
+               describing the 3-dimensional geometry of the molecule (w do this because wee assume that
+				the computation of the 3d-descriptor from the conformer list is negligible compared to
+				the computation of the conformers.
+            </p>
+            
+		</intro>
+        
+        
+        <option name="Input column">The column containing the conformer list objects that should be clustered</option>
+        <option name="Cluster column name">Name of the column that will contain the cluster number</option>
+        <option name="Representative column name">Name of the column that will contain the information if a compound is
+            the representative compound of the cluster
+        </option>
+        <option name="Stop clustering when number of clusters reaches">If selected, the clustering will stop if the
+            specified number of clusters is reached
+        </option>
+        <option name="Stop clustering when highest similarity falls benlow">If selected, the clustering will stop if the
+            the similarity needed to join two clusters falls below a defined threshold
+        </option>
+        <option name="Descriptor">The descriptor used for the similarity calculation.
+        </option>
+        <!-- possibly more options that can also be grouped by tabs -->
+        <!--
+        <tab name="Standard Options">
+            <option name="short name of first option (like in the dialog)">description of first option</option>
+            <option name="short name of second option (like in the dialog)">description of second option</option>
+        </tab>
+        <tab name="Advanced Options">
+            <option name="short name of first advanced option (like in the dialog)">description of first advanced option</option>
+        </tab>
+        -->
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Input table">Input table containing the conformer list objects to be clustered</inPort>
+        <!-- possibly more input ports here-->
+        <outPort index="0" name="Cluster table">Table with clustering information added.</outPort>
+    </ports>
+    
+</knimeNode>
