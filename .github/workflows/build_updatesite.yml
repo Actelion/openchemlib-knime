@@ -14,11 +14,11 @@ jobs:
 
     - name: Build and Deploy
       run: |
-        mkdir -p ./public_update_site
-        cp -R ./idorsiaknimeinfrastructure/update_site/* ./public_update_site
+        mkdir -p ./public_update_site/update_site
+        cp -R ./idorsiaknimeinfrastructure/update_site/* ./public_update_site/update_site
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public_update_site/idorsiaknimeinfrastructure
+        publish_dir: ./public_update_site
