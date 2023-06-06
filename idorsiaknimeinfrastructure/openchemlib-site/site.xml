@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.idorsia.research.chem.knime.nodes_2.4.1.jar" id="com.idorsia.research.chem.knime.nodes" version="2.4.1"/>
+   <feature url="features/com.idorsia.research.chem.knime.nodes_2.4.1.jar" id="com.idorsia.research.chem.knime.nodes" version="2.4.1">
+      <category name="OpenChemLib Knime Nodes"/>
+   </feature>
    <category-def name="OpenChemLib Knime Nodes" label="OpenChemLib Knime Nodes"/>
 </site>
