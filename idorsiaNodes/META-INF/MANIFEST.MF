@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OpenChemLib Extension for KNIME
-Bundle-SymbolicName: com.idorsia.research.nodes;singleton:=true
+Bundle-SymbolicName: com.actelion.research.nodes;singleton:=true
 Bundle-Version: 2.4.1
 Bundle-ClassPath: lib/jars/openchemlib-2023.5.0.jar,
  lib/jars/knimeconnector-1.0.4-SNAPSHOT.jar,
